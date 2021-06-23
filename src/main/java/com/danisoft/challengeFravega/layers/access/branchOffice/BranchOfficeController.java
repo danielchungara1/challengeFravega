@@ -42,4 +42,14 @@ public class BranchOfficeController {
                 .build();
     }
 
+    @DeleteMapping(Endpoints.BRANCH_OFFICE_DELETE_ONE)
+    public ResponseDto deleteById(@PathVariable Long id) {
+
+        this.service.deleteById(id);
+
+        return ResponseDto.builder()
+                .message("Branch Office deleted.")
+                .build();
+    }
+
 }
