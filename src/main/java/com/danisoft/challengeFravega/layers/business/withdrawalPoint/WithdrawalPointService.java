@@ -36,4 +36,13 @@ public class WithdrawalPointService {
 
         return this.repository.save(model);
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public WithdrawalPointModel getById(Long id) {
+
+        this.validator.guaranteeExistModelById(id);
+
+        return this.repository.findById(id).orElse(new WithdrawalPointModel());
+
+    }
 }

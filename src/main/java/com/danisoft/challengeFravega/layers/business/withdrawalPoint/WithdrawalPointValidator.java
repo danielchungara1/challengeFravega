@@ -1,13 +1,23 @@
 package com.danisoft.challengeFravega.layers.business.withdrawalPoint;
 
 import com.danisoft.challengeFravega.layers.business.BusinessException;
-import com.danisoft.challengeFravega.layers.persistence.branchOffice.BranchOfficeModel;
 import com.danisoft.challengeFravega.layers.persistence.withdrawalPoint.WithdrawalPointModel;
+import com.danisoft.challengeFravega.layers.persistence.withdrawalPoint.WithdrawalPointRepository;
 import com.danisoft.challengeFravega.shared.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class WithdrawalPointValidator {
+
+    private final WithdrawalPointRepository repository;
+
+    @Autowired
+    public WithdrawalPointValidator(
+            WithdrawalPointRepository repository
+    ) {
+        this.repository = repository;
+    }
 
     public void validateModel(WithdrawalPointModel model) {
 
@@ -31,5 +41,11 @@ public class WithdrawalPointValidator {
             BusinessException.throwException("longitude is required.");
         }
 
+    }
+
+    public void guaranteeExistModelById(Long id) {
+        if (!this.repository.existsById(id)) {
+            BusinessException.throwException("id not exist.");
+        }
     }
 }

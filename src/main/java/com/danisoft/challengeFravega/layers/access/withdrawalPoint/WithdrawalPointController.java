@@ -4,9 +4,7 @@ import com.danisoft.challengeFravega.layers.access.Endpoints;
 import com.danisoft.challengeFravega.layers.access.ResponseDto;
 import com.danisoft.challengeFravega.layers.business.withdrawalPoint.WithdrawalPointService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class WithdrawalPointController {
@@ -24,6 +22,14 @@ public class WithdrawalPointController {
         return ResponseDto.builder()
                 .message("Withdrawal Point created.")
                 .data(this.service.createByDto(dto), WithdrawalPointDto.class)
+                .build();
+    }
+
+    @GetMapping(Endpoints.WITHDRAWAL_POINT_GET_ONE)
+    public ResponseDto getById(@PathVariable Long id) {
+        return ResponseDto.builder()
+                .message("Withdrawal Point fetched.")
+                .data(this.service.getById(id), WithdrawalPointDto.class)
                 .build();
     }
 

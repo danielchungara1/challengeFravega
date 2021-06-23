@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WithdrawalPointDto {
+    private Long id;
     private String address;
     private BigDecimal capacityM3;
     private BigDecimal latitude;
