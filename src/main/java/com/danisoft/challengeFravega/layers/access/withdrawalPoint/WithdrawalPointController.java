@@ -42,4 +42,14 @@ public class WithdrawalPointController {
                 .build();
     }
 
+    @DeleteMapping(Endpoints.WITHDRAWAL_POINT_DELETE_ONE)
+    public ResponseDto deleteById(@PathVariable Long id) {
+
+        this.service.deleteById(id);
+
+        return ResponseDto.builder()
+                .message("Withdrawal Point deleted.")
+                .build();
+    }
+
 }
