@@ -10,5 +10,6 @@ public class Endpoints {
 
     public static final String WITHDRAWAL_POINT = BASE_PATH + "/withdrawal-point";
     public static final String WITHDRAWAL_POINT_READ_ONE = BASE_PATH + "/withdrawal-point/{id}" ;
+    public static final String WITHDRAWAL_POINT_UPDATE_ONE = BASE_PATH + "/withdrawal-point/{id}" ;
 
 }

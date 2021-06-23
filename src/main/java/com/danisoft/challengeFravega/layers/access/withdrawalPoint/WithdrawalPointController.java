@@ -2,6 +2,7 @@ package com.danisoft.challengeFravega.layers.access.withdrawalPoint;
 
 import com.danisoft.challengeFravega.layers.access.Endpoints;
 import com.danisoft.challengeFravega.layers.access.ResponseDto;
+import com.danisoft.challengeFravega.layers.access.branchOffice.BranchOfficeDto;
 import com.danisoft.challengeFravega.layers.business.withdrawalPoint.WithdrawalPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,15 @@ public class WithdrawalPointController {
         return ResponseDto.builder()
                 .message("Withdrawal Point fetched.")
                 .data(this.service.getById(id), WithdrawalPointDto.class)
+                .build();
+    }
+
+    @PutMapping(Endpoints.WITHDRAWAL_POINT_UPDATE_ONE)
+    public ResponseDto updateByDto(@PathVariable Long id, @RequestBody WithdrawalPointDto dto) {
+
+        return ResponseDto.builder()
+                .message("Withdrawal Point updated.")
+                .data(this.service.updateByDto(id, dto), WithdrawalPointDto.class)
                 .build();
     }
 
