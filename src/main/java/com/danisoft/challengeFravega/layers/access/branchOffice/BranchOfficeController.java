@@ -16,7 +16,7 @@ public class BranchOfficeController {
         this.service = service;
     }
 
-    @PostMapping(Endpoints.BRANCH_OFFICE)
+    @PostMapping(Endpoints.BRANCH_OFFICE_CREATE_ONE)
     public ResponseDto createByDto(@RequestBody BranchOfficeDto dto) {
 
         return ResponseDto.builder()

@@ -1,8 +1,6 @@
 package com.danisoft.challengeFravega.layers.business.withdrawalPoint;
 
-import com.danisoft.challengeFravega.layers.access.branchOffice.BranchOfficeDto;
 import com.danisoft.challengeFravega.layers.access.withdrawalPoint.WithdrawalPointDto;
-import com.danisoft.challengeFravega.layers.persistence.branchOffice.BranchOfficeModel;
 import com.danisoft.challengeFravega.layers.persistence.withdrawalPoint.WithdrawalPointModel;
 import com.danisoft.challengeFravega.layers.persistence.withdrawalPoint.WithdrawalPointRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +25,8 @@ public class WithdrawalPointService {
     @Transactional(rollbackFor = Exception.class)
     public WithdrawalPointModel createByDto(WithdrawalPointDto dto) {
 
-        WithdrawalPointModel model = WithdrawalPointModel.builder()
-                .address(dto.getAddress())
-                .capacityM3(dto.getCapacityM3())
-                .latitude(dto.getLatitude())
-                .longitude(dto.getLongitude())
-                .build();
+        return this.saveOrUpdateByDto(new WithdrawalPointModel(), dto);
 
-        this.validator.validateModel(model);
-
-        return this.repository.save(model);
     }
 
     @Transactional(rollbackFor = Exception.class)
