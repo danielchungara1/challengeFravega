@@ -1,6 +1,6 @@
 package com.danisoft.challengeFravega.shared;
 
-public class UtilString {
+public class StringUtil {
 
     /**
      * Truncate a string until reaching substring.
@@ -26,5 +26,15 @@ public class UtilString {
             return defaultStr;
         }
 
+    }
+
+    /**
+     * Check if the string is an empty string.
+     *
+     * @param str        string
+     * @return boolean that indicates if string is empty.
+     */
+    public static Boolean isEmpty(String str) {
+        return str == null || str.equals("");
     }
 }

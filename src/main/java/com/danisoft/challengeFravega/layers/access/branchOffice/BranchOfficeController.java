@@ -1,5 +1,7 @@
-package com.danisoft.challengeFravega.layers.access;
+package com.danisoft.challengeFravega.layers.access.branchOffice;
 
+import com.danisoft.challengeFravega.layers.access.Endpoints;
+import com.danisoft.challengeFravega.layers.access.ResponseDto;
 import com.danisoft.challengeFravega.layers.business.BranchOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +19,7 @@ public class BranchOfficeController {
     }
 
     @PostMapping(Endpoints.BRANCH_OFFICE)
-    public ResponseDto create(@RequestBody BranchOfficeDto branchOfficeDto) {
+    public ResponseDto createByDto(@RequestBody BranchOfficeDto branchOfficeDto) {
 
         return ResponseDto.builder()
                 .message("Branch Office created.")

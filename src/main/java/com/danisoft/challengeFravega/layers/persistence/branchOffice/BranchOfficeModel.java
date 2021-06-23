@@ -1,4 +1,4 @@
-package com.danisoft.challengeFravega.layers.persistence;
+package com.danisoft.challengeFravega.layers.persistence.branchOffice;
 
 import lombok.*;
 

@@ -1,6 +1,7 @@
 package com.danisoft.challengeFravega.layers.access;
 
-import com.danisoft.challengeFravega.shared.UtilString;
+import com.danisoft.challengeFravega.layers.business.BusinessException;
+import com.danisoft.challengeFravega.shared.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -20,18 +21,17 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @Slf4j
 public class ControllerExceptionHandler {
 
-//    // Business Runtime Exceptions
-//    @ExceptionHandler({
-//            BusinessRuntimeException.class,
-//    })
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public ResponseSimpleDto badRequestExceptionHandler(BusinessRuntimeException e) {
-//        log.error(e.getMessage());
-//        return ResponseSimpleDto.builder()
-//                .message(e.getMessage())
-//                .details(e.getDetails())
-//                .build();
-//    }
+    // Business Runtime Exceptions
+    @ExceptionHandler({
+            BusinessException.class,
+    })
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseDto badRequestExceptionHandler(BusinessException e) {
+        return ResponseDto.builder()
+                .message(e.getMessage())
+                .details(e.getMessage())
+                .build();
+    }
 
     // Invalid Path Variable URL
     @ExceptionHandler({
@@ -56,7 +56,7 @@ public class ControllerExceptionHandler {
         final String message = "Invalid JSON body.";
         return ResponseDto.builder()
                 .message(message)
-                .details( UtilString.truncateBySubstringOrElseReturnDefaultString(e.getMessage(), "(class", message))
+                .details( StringUtil.truncateBySubstringOrElseReturnDefaultString(e.getMessage(), "(class", message))
                 .build();
     }
 
@@ -67,7 +67,7 @@ public class ControllerExceptionHandler {
         log.error(e.getMessage());
         return ResponseDto.builder()
                 .message(e.hasErrors() ? e.getAllErrors().get(0).getDefaultMessage() :"Method Argument invalid.")
-                .details(UtilString.truncateBySubstringOrElseReturnDefaultString(e.getMessage(), "in public", "Method Argument invalid."))
+                .details(StringUtil.truncateBySubstringOrElseReturnDefaultString(e.getMessage(), "in public", "Method Argument invalid."))
                 .build();
     }
 

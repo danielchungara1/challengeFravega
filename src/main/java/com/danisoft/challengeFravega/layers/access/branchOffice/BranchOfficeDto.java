@@ -1,4 +1,4 @@
-package com.danisoft.challengeFravega.layers.access;
+package com.danisoft.challengeFravega.layers.access.branchOffice;
 
 import lombok.Getter;
 import lombok.Setter;
