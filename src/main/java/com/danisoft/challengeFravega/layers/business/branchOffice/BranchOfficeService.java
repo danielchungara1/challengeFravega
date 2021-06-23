@@ -1,7 +1,6 @@
-package com.danisoft.challengeFravega.layers.business;
+package com.danisoft.challengeFravega.layers.business.branchOffice;
 
 import com.danisoft.challengeFravega.layers.access.branchOffice.BranchOfficeDto;
-import com.danisoft.challengeFravega.layers.access.branchOffice.BranchOfficeValidator;
 import com.danisoft.challengeFravega.layers.persistence.branchOffice.BranchOfficeModel;
 import com.danisoft.challengeFravega.layers.persistence.branchOffice.BranchOfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

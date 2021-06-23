@@ -1,4 +1,4 @@
-package com.danisoft.challengeFravega.layers.access.branchOffice;
+package com.danisoft.challengeFravega.layers.business.branchOffice;
 
 import com.danisoft.challengeFravega.layers.business.BusinessException;
 import com.danisoft.challengeFravega.layers.persistence.branchOffice.BranchOfficeModel;
