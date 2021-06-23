@@ -45,4 +45,20 @@ public class BranchOfficeService {
         return this.repository.findById(id).orElse(new BranchOfficeModel());
 
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public BranchOfficeModel updateByDto(Long id, BranchOfficeDto dto) {
+
+        BranchOfficeModel model = this.getById(id);
+
+        model.setAddress(dto.getAddress());
+        model.setAttention(dto.getAttention());
+        model.setLatitude(dto.getLatitude());
+        model.setLongitude(dto.getLongitude());
+
+        this.validator.validateModel(model);
+
+        return this.repository.save(model);
+
+    }
 }

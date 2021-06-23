@@ -25,7 +25,7 @@ public class WithdrawalPointController {
                 .build();
     }
 
-    @GetMapping(Endpoints.WITHDRAWAL_POINT_GET_ONE)
+    @GetMapping(Endpoints.WITHDRAWAL_POINT_READ_ONE)
     public ResponseDto getById(@PathVariable Long id) {
         return ResponseDto.builder()
                 .message("Withdrawal Point fetched.")

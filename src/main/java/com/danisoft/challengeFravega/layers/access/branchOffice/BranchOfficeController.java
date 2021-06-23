@@ -25,11 +25,20 @@ public class BranchOfficeController {
                 .build();
     }
 
-    @GetMapping(Endpoints.BRANCH_OFFICE_GET_ONE)
+    @GetMapping(Endpoints.BRANCH_OFFICE_READ_ONE)
     public ResponseDto getById(@PathVariable Long id) {
         return ResponseDto.builder()
                 .message("Branch Office fetched.")
                 .data(this.service.getById(id), BranchOfficeDto.class)
+                .build();
+    }
+
+    @PutMapping(Endpoints.BRANCH_OFFICE_UPDATE_ONE)
+    public ResponseDto updateByDto(@PathVariable Long id, @RequestBody BranchOfficeDto dto) {
+
+        return ResponseDto.builder()
+                .message("Branch Office updated.")
+                .data(this.service.updateByDto(id, dto), BranchOfficeDto.class)
                 .build();
     }
 
