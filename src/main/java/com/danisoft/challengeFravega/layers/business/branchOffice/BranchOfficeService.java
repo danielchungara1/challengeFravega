@@ -25,16 +25,7 @@ public class BranchOfficeService {
     @Transactional(rollbackFor = Exception.class)
     public BranchOfficeModel createByDto(BranchOfficeDto dto) {
 
-        BranchOfficeModel model = BranchOfficeModel.builder()
-                .address(dto.getAddress())
-                .attention(dto.getAttention())
-                .latitude(dto.getLatitude())
-                .longitude(dto.getLongitude())
-                .build();
-
-        this.validator.validateModel(model);
-
-        return this.repository.save(model);
+        return this.saveOrUpdateByDto(new BranchOfficeModel(), dto);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -50,6 +41,12 @@ public class BranchOfficeService {
     public BranchOfficeModel updateByDto(Long id, BranchOfficeDto dto) {
 
         BranchOfficeModel model = this.getById(id);
+
+        return this.saveOrUpdateByDto(model, dto);
+
+    }
+
+    public BranchOfficeModel saveOrUpdateByDto(BranchOfficeModel model, BranchOfficeDto dto) {
 
         model.setAddress(dto.getAddress());
         model.setAttention(dto.getAttention());
