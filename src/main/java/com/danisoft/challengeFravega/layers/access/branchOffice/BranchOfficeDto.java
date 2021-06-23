@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BranchOfficeDto {
+    private Long id;
     private String address;
     private String attention;
     private BigDecimal latitude;

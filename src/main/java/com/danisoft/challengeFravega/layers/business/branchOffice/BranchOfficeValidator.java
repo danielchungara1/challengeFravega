@@ -2,11 +2,22 @@ package com.danisoft.challengeFravega.layers.business.branchOffice;
 
 import com.danisoft.challengeFravega.layers.business.BusinessException;
 import com.danisoft.challengeFravega.layers.persistence.branchOffice.BranchOfficeModel;
+import com.danisoft.challengeFravega.layers.persistence.branchOffice.BranchOfficeRepository;
 import com.danisoft.challengeFravega.shared.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BranchOfficeValidator {
+
+    private final BranchOfficeRepository repository;
+
+    @Autowired
+    public BranchOfficeValidator(
+            BranchOfficeRepository repository
+    ) {
+        this.repository = repository;
+    }
 
     public void validateModel(BranchOfficeModel model) {
 
@@ -30,5 +41,11 @@ public class BranchOfficeValidator {
             BusinessException.throwException("longitude is required.");
         }
 
+    }
+
+    public void guaranteeExistModelById(Long id) {
+        if (!this.repository.existsById(id)) {
+            BusinessException.throwException("id not exist.");
+        }
     }
 }

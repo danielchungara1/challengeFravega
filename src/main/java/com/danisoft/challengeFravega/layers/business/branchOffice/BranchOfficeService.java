@@ -36,4 +36,13 @@ public class BranchOfficeService {
 
         return this.repository.save(model);
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public BranchOfficeModel getById(Long id) {
+
+        this.validator.guaranteeExistModelById(id);
+
+        return this.repository.findById(id).orElse(new BranchOfficeModel());
+
+    }
 }

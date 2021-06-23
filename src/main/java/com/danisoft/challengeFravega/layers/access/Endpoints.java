@@ -7,5 +7,5 @@ public class Endpoints {
     public static final String BRANCH_OFFICE = BASE_PATH + "/branch-office";
     public static final String WITHDRAWAL_POINT = BASE_PATH + "/withdrawal-point";
 
-
+    public static final String BRANCH_OFFICE_GET_ONE = BASE_PATH + "/branch-office/{id}" ;
 }
