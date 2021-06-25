@@ -1,7 +1,6 @@
 package com.danisoft.challengeFravega.layers.business.location;
 
 import com.danisoft.challengeFravega.layers.access.location.CoordinatesDtoIn;
-import com.danisoft.challengeFravega.layers.access.location.LocationDtoIn;
 import com.danisoft.challengeFravega.layers.business.BusinessException;
 import com.danisoft.challengeFravega.layers.persistence.location.LocationModel;
 import com.danisoft.challengeFravega.layers.persistence.location.LocationRepository;
@@ -9,13 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigDecimal;
 import java.util.AbstractMap;
 import java.util.Comparator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -57,16 +52,22 @@ public class LocationService {
      * @return distance between 2 coordinates
      */
     private BigDecimal calculateDistance(CoordinatesDtoIn coordinate1, LocationModel coordinate2) {
-        return BigDecimal.valueOf(1.5);
+        float lat1 = coordinate1.getLatitude().floatValue();
+        float lng1 = coordinate1.getLongitude().floatValue();
+
+        float lat2 = coordinate2.getLatitude().floatValue();
+        float lng2 = coordinate2.getLongitude().floatValue();
+
+        double earthRadius = 6371000; //meters
+        double dLat = Math.toRadians(lat2-lat1);
+        double dLng = Math.toRadians(lng2-lng1);
+        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                        Math.sin(dLng/2) * Math.sin(dLng/2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        float dist = (float) (earthRadius * c);
+
+        return BigDecimal.valueOf(dist);
     }
 
-
-    @Transactional(rollbackFor = Exception.class)
-    public LocationModel getById(Long id) {
-
-        this.validator.guaranteeExistModelById(id);
-
-        return this.repository.findById(id).orElse(new LocationModel());
-
-    }
 }
