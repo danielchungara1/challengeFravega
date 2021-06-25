@@ -2,22 +2,11 @@ package com.danisoft.challengeFravega.layers.business.location;
 
 import com.danisoft.challengeFravega.layers.business.BusinessException;
 import com.danisoft.challengeFravega.layers.persistence.location.LocationModel;
-import com.danisoft.challengeFravega.layers.persistence.location.LocationRepository;
 import com.danisoft.challengeFravega.shared.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LocationValidator {
-
-    private final LocationRepository repository;
-
-    @Autowired
-    public LocationValidator(
-            LocationRepository repository
-    ) {
-        this.repository = repository;
-    }
 
     public void validateModel(LocationModel model) {
 
@@ -38,9 +27,4 @@ public class LocationValidator {
 
     }
 
-    public void guaranteeExistModelById(Long id) {
-        if (!this.repository.existsById(id)) {
-            BusinessException.throwException("id not exist.");
-        }
-    }
 }
