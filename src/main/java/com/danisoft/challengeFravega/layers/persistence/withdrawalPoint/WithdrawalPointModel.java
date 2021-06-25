@@ -1,5 +1,6 @@
 package com.danisoft.challengeFravega.layers.persistence.withdrawalPoint;
 
+import com.danisoft.challengeFravega.layers.persistence.location.LocationModel;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +10,6 @@ import java.math.BigDecimal;
 @Table(name = "withdrawal_point")
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -21,15 +21,14 @@ public class WithdrawalPointModel {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(name = "address")
-    private String address;
-
     @Column(name = "capacity_m3")
     private BigDecimal capacityM3;
 
-    @Column(name = "latitude")
-    private BigDecimal latitude;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id", unique = true)
+    private LocationModel location;
 
-    @Column(name = "longitude")
-    private BigDecimal longitude;
+    public WithdrawalPointModel(){
+        this.location =  new LocationModel();
+    }
 }

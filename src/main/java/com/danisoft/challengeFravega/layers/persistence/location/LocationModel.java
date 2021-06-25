@@ -32,6 +32,10 @@ public class LocationModel {
     private BigDecimal longitude;
 
     public LocationModel(LocationDtoIn dto) {
+        this.setLocationByDto(dto);
+    }
+
+    public void setLocationByDto(LocationDtoIn dto) {
         this.address = dto.getAddress();
         this.latitude = dto.getLatitude();
         this.longitude = dto.getLongitude();
