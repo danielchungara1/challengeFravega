@@ -17,11 +17,11 @@ public class LocationController {
     }
 
     @GetMapping(Endpoints.LOCATION_NEAREST_READ_ONE)
-    public ResponseDto readNearestLocation(LocationDtoIn dto) {
+    public ResponseDto readNearestLocation(CoordinatesDtoIn dto) {
 
         return ResponseDto.builder()
                 .message("Location fetched.")
-                .data(this.service.readNearestLocation(dto), LocationDtoIn.class)
+                .data(this.service.readNearestLocation(dto), LocationDtoOut.class)
                 .build();
     }
 }

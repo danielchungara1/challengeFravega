@@ -1,13 +1,24 @@
 package com.danisoft.challengeFravega.layers.business.location;
 
+import com.danisoft.challengeFravega.layers.access.location.CoordinatesDtoIn;
 import com.danisoft.challengeFravega.layers.access.location.LocationDtoIn;
+import com.danisoft.challengeFravega.layers.business.BusinessException;
 import com.danisoft.challengeFravega.layers.persistence.location.LocationModel;
 import com.danisoft.challengeFravega.layers.persistence.location.LocationRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.AbstractMap;
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+
 @Service
+@Slf4j
 public class LocationService {
 
     private final LocationRepository repository;
@@ -23,36 +34,32 @@ public class LocationService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public LocationModel readNearestLocation(LocationDtoIn dto) {
+    public LocationModel readNearestLocation(CoordinatesDtoIn dto) {
 
-        return this.repository.findById(1L).orElse(null);
-    }
+        Comparator<AbstractMap.SimpleEntry<LocationModel, BigDecimal>> simpleEntryComparator = Comparator.comparing(AbstractMap.SimpleEntry::getValue);
 
-    @Transactional(rollbackFor = Exception.class)
-    public LocationModel createByDto(LocationDtoIn dto) {
-
-        return this.saveOrUpdateByDto(new LocationModel(), dto);
-
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public LocationModel updateByDto(Long id, LocationDtoIn dto) {
-        LocationModel model = this.getById(id);
-        return this.saveOrUpdateByDto(model, dto);
+        return  this.repository.findAll()
+                .parallelStream()
+                .map(locationModel ->
+                        new AbstractMap.SimpleEntry<>(locationModel, this.calculateDistance(dto, locationModel)))
+                .peek(locationModelBigDecimalSimpleEntry -> log.info(locationModelBigDecimalSimpleEntry.toString()))
+                .min(simpleEntryComparator)
+                .orElseThrow(
+                        () -> new BusinessException("Not exist any location nearest.")
+                ).getKey();
 
     }
 
-    private LocationModel saveOrUpdateByDto(LocationModel model, LocationDtoIn dto) {
-
-        model.setAddress(dto.getAddress());
-        model.setLatitude(dto.getLatitude());
-        model.setLongitude(dto.getLongitude());
-
-        this.validator.validateModel(model);
-
-        return this.repository.save(model);
-
+    /**
+     * Calculate distance between 2 coordinates.
+     * @param coordinate1 implements coordinate interface
+     * @param coordinate2 implements coordinate interface
+     * @return distance between 2 coordinates
+     */
+    private BigDecimal calculateDistance(CoordinatesDtoIn coordinate1, LocationModel coordinate2) {
+        return BigDecimal.valueOf(1.5);
     }
+
 
     @Transactional(rollbackFor = Exception.class)
     public LocationModel getById(Long id) {
