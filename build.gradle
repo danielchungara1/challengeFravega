@@ -6,7 +6,9 @@ plugins {
 
 group = 'com.danisoft'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '13'
+java {
+	sourceCompatibility = JavaVersion.VERSION_13
+}
 
 configurations {
 	compileOnly {
@@ -37,6 +39,6 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
 
-test {
+tasks.named('test', Test) {
 	useJUnitPlatform()
 }
