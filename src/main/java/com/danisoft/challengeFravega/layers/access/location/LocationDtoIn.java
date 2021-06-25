@@ -1,4 +1,4 @@
-package com.danisoft.challengeFravega.layers.access.branchOffice;
+package com.danisoft.challengeFravega.layers.access.location;
 
 import lombok.*;
 
@@ -9,10 +9,10 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BranchOfficeDto {
-    private Long id;
+public class LocationDtoIn {
+
     private String address;
-    private String attention;
     private BigDecimal latitude;
     private BigDecimal longitude;
+
 }

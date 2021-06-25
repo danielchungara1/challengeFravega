@@ -1,15 +1,14 @@
 package com.danisoft.challengeFravega.layers.persistence.branchOffice;
 
+import com.danisoft.challengeFravega.layers.persistence.location.LocationModel;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "branch_office")
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -21,15 +20,15 @@ public class BranchOfficeModel {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(name = "address")
-    private String address;
-
     @Column(name = "attention")
     private String attention;
 
-    @Column(name = "latitude")
-    private BigDecimal latitude;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id", unique = true)
+    private LocationModel location;
 
-    @Column(name = "longitude")
-    private BigDecimal longitude;
+    public BranchOfficeModel(){
+        this.location =  new LocationModel();
+    }
+
 }

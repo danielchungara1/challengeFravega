@@ -17,11 +17,11 @@ public class BranchOfficeController {
     }
 
     @PostMapping(Endpoints.BRANCH_OFFICE_CREATE_ONE)
-    public ResponseDto createByDto(@RequestBody BranchOfficeDto dto) {
+    public ResponseDto createByDto(@RequestBody BranchOfficeDtoIn dto) {
 
         return ResponseDto.builder()
                 .message("Branch Office created.")
-                .data(this.service.createByDto(dto), BranchOfficeDto.class)
+                .data(this.service.createByDto(dto), BranchOfficeDtoOut.class)
                 .build();
     }
 
@@ -29,16 +29,16 @@ public class BranchOfficeController {
     public ResponseDto getById(@PathVariable Long id) {
         return ResponseDto.builder()
                 .message("Branch Office fetched.")
-                .data(this.service.getById(id), BranchOfficeDto.class)
+                .data(this.service.getById(id), BranchOfficeDtoOut.class)
                 .build();
     }
 
     @PutMapping(Endpoints.BRANCH_OFFICE_UPDATE_ONE)
-    public ResponseDto updateByDto(@PathVariable Long id, @RequestBody BranchOfficeDto dto) {
+    public ResponseDto updateByDto(@PathVariable Long id, @RequestBody BranchOfficeDtoIn dto) {
 
         return ResponseDto.builder()
                 .message("Branch Office updated.")
-                .data(this.service.updateByDto(id, dto), BranchOfficeDto.class)
+                .data(this.service.updateByDto(id, dto), BranchOfficeDtoOut.class)
                 .build();
     }
 

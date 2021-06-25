@@ -17,11 +17,11 @@ public class WithdrawalPointController {
     }
 
     @PostMapping(Endpoints.WITHDRAWAL_POINT_CREATE_ONE)
-    public ResponseDto createByDto(@RequestBody WithdrawalPointDto dto) {
+    public ResponseDto createByDto(@RequestBody WithdrawalPointDtoIn dto) {
 
         return ResponseDto.builder()
                 .message("Withdrawal Point created.")
-                .data(this.service.createByDto(dto), WithdrawalPointDto.class)
+                .data(this.service.createByDto(dto), WithdrawalPointDtoOut.class)
                 .build();
     }
 
@@ -29,16 +29,16 @@ public class WithdrawalPointController {
     public ResponseDto getById(@PathVariable Long id) {
         return ResponseDto.builder()
                 .message("Withdrawal Point fetched.")
-                .data(this.service.getById(id), WithdrawalPointDto.class)
+                .data(this.service.getById(id), WithdrawalPointDtoOut.class)
                 .build();
     }
 
     @PutMapping(Endpoints.WITHDRAWAL_POINT_UPDATE_ONE)
-    public ResponseDto updateByDto(@PathVariable Long id, @RequestBody WithdrawalPointDto dto) {
+    public ResponseDto updateByDto(@PathVariable Long id, @RequestBody WithdrawalPointDtoIn dto) {
 
         return ResponseDto.builder()
                 .message("Withdrawal Point updated.")
-                .data(this.service.updateByDto(id, dto), WithdrawalPointDto.class)
+                .data(this.service.updateByDto(id, dto), WithdrawalPointDtoOut.class)
                 .build();
     }
 

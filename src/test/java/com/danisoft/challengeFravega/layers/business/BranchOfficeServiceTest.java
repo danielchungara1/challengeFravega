@@ -1,10 +1,12 @@
 package com.danisoft.challengeFravega.layers.business;
 
 import com.danisoft.challengeFravega.TestContainersBase;
-import com.danisoft.challengeFravega.layers.access.branchOffice.BranchOfficeDto;
+import com.danisoft.challengeFravega.layers.access.branchOffice.BranchOfficeDtoIn;
+import com.danisoft.challengeFravega.layers.access.location.LocationDtoIn;
 import com.danisoft.challengeFravega.layers.business.branchOffice.BranchOfficeService;
 import com.danisoft.challengeFravega.layers.persistence.branchOffice.BranchOfficeModel;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,21 +29,23 @@ class BranchOfficeServiceTest extends TestContainersBase {
     @Test
     void createBranchOfficeByDtoSuccess() {
 
-        BranchOfficeDto dto = BranchOfficeDto.builder()
-                .address(ADDRESS)
+        BranchOfficeDtoIn dto = BranchOfficeDtoIn.builder()
                 .attention(ATTENTION)
-                .latitude(LATITUDE)
-                .longitude(LONGITUDE)
+                .location(LocationDtoIn.builder()
+                        .address(ADDRESS)
+                        .latitude(LATITUDE)
+                        .longitude(LONGITUDE)
+                        .build())
                 .build();
 
         BranchOfficeModel model = service.createByDto(dto);
 
         assertNotNull(model);
         assertNotNull(model.getId());
-        assertEquals(ADDRESS, model.getAddress());
         assertEquals(ATTENTION, model.getAttention());
-        assertEquals(LATITUDE, model.getLatitude());
-        assertEquals(LONGITUDE, model.getLongitude());
+        assertEquals(ADDRESS, model.getLocation().getAddress());
+        assertEquals(LATITUDE, model.getLocation().getLatitude());
+        assertEquals(LONGITUDE, model.getLocation().getLongitude());
 
         log.info(">>> Branch Office created with ID {}", model.getId().toString());
     }
@@ -49,9 +53,11 @@ class BranchOfficeServiceTest extends TestContainersBase {
     @Test
     void createBranchOfficeByDtoWithoutCoordinates() {
 
-        BranchOfficeDto dto = BranchOfficeDto.builder()
-                .address(ADDRESS)
+        BranchOfficeDtoIn dto = BranchOfficeDtoIn.builder()
                 .attention(ATTENTION)
+                .location(LocationDtoIn.builder()
+                        .address(ADDRESS)
+                        .build())
                 .build();
 
         assertThrows(BusinessException.class, () -> this.service.createByDto(dto));

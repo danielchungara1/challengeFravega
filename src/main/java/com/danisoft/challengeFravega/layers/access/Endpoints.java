@@ -16,4 +16,7 @@ public class Endpoints {
     public static final String WITHDRAWAL_POINT_UPDATE_ONE = BASE_PATH + "/withdrawal-point/{id}" ;
     public static final String WITHDRAWAL_POINT_DELETE_ONE = BASE_PATH + "/withdrawal-point/{id}" ;
 
+    public static final String LOCATION = BASE_PATH + "/location";
+    public static final String LOCATION_NEAREST_READ_ONE = LOCATION + "/nearest-location";
+
 }

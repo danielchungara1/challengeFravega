@@ -1,4 +1,4 @@
-package com.danisoft.challengeFravega.layers.access.withdrawalPoint;
+package com.danisoft.challengeFravega.layers.access.location;
 
 import lombok.*;
 
@@ -9,10 +9,11 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WithdrawalPointDto {
+public class LocationDtoOut {
+
     private Long id;
     private String address;
-    private BigDecimal capacityM3;
     private BigDecimal latitude;
     private BigDecimal longitude;
+
 }
